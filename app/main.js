@@ -30,8 +30,11 @@
 
     function create () {
         // Init space background
-        this.spaceTile = game.add.tileSprite(0, 0, 100000, 100000, 'space');
-
+        this.spaceTile = game.add.tileSprite(0, 0, 2000, 2000, 'space');
+        for(var i = 0; i < 10; i ++){
+        	var sprite = game.add.sprite(game.rnd.integerInRange(0,2000),game.rnd.integerInRange(0,2000),'planet'+game.rnd.integerInRange(1,12));
+        	sprite.scale.setTo(1000,1000);
+        }
     	var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
         logo.anchor.setTo(0.5, 0.5);
         game.world.setBounds(0,0,2000,2000);
@@ -42,9 +45,7 @@
         align: "center"
     });
         livesText.fixedToCamera = true;
-        for(var i = 0; i < 10; i ++){
-        	game.add.sprite(game.rnd.integerInRange(0,game.world.bounds.width),game.rnd.integerInRange(0,game.world.bounds.height),'planet'+game.rnd.integerInRange(1,12));
-        }
+        
     }
 
     function update(){
