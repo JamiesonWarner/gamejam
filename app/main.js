@@ -56,7 +56,7 @@
     	lives --;
     	livesText.setText("Lives: "+lives);
     	if(lives == 0){
-    		game.add.text(game.world.centerX,game.world.centerY,"You Lose!", {font: "64px Arial",
+    		game.add.text(game.camera.x + game.camera.width / 2,game.camera.y + game.camera.height / 2,"You Lose!", {font: "64px Arial",
         fill: "#ff0044",
         align: "center"});
     	}
