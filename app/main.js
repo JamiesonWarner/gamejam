@@ -110,8 +110,8 @@
         for(var i = 0; i < 10; i ++){
         	var dispy  = game.rnd.integerInRange(1000,2000);
         	var dispx = game.rnd.integerInRange(1000, 2000);
-        	var x = game.camera.x - dispx  + game.rnd.integerInRange(0,1) * (game.camera.width + dispx) ;
-        	var y =  game.camera.y - dispy + game.rnd.integerInRange(0,1) * (game.camera.height + dispy);
+        	var x = player_sprite.x - dispx  + game.rnd.integerInRange(0,1) * (game.camera.width + dispx) ;
+        	var y =  player_sprite.y - dispy + game.rnd.integerInRange(0,1) * (game.camera.height + dispy);
         	
 
         	enemies[i] = game.add.sprite(x,y,'enemy' );
@@ -127,8 +127,12 @@
 
     function replaceEnemy(enemy){
     	while((enemy.body.x > 0 && enemy.body.x < game.world.width) ||  (enemy.body.y > 0 && enemy.body.y < 600)){
-        		enemy.body.x = game.rnd.integerInRange(-800, 1600);
-        		enemy.body.y =game.rnd.integerInRange(-600,1200);
+        		var dispy  = game.rnd.integerInRange(1000,2000);
+        		var dispx = game.rnd.integerInRange(1000, 2000);
+        		var x = player_sprite.x - dispx  + game.rnd.integerInRange(0,1) * (game.camera.width + dispx) ;
+        		var y =  player_sprite.y - dispy + game.rnd.integerInRange(0,1) * (game.camera.height + dispy);
+        		enemy.body.x = x;
+        		enemy.body.y = y;
         } 	
     }
 
