@@ -18,8 +18,7 @@ AIController.prototype.update = function () {
 
 AIController.prototype.update_enemy = function(enemy) {
     if (!enemy.aiAcceleration) {
-        
-
+        enemy.rotationOffset = this.game.rnd.integerInRange(0,360);
         enemy.aiAcceleration = new Phaser.Point();
     }
 
@@ -37,5 +36,5 @@ AIController.prototype.update_enemy = function(enemy) {
 }
 
 AIController.prototype.face_sprite = function(sprite, x, y) {
-    sprite.angle = Math.atan2(y,x)*180 / Math.PI;
+    sprite.angle = Math.atan2(y,x)*180 / Math.PI + sprite.rotationOffset;
 }
