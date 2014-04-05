@@ -1,7 +1,7 @@
 function AIController(game, enemies, player, obstacles) {
     this.game = game;
     this.enemies = enemies;
-    this.player = player;
+    this.player = player.player;
     this.obstacles = obstacles;
 
     this.ENEMY_SPEED = 5;
@@ -17,26 +17,23 @@ AIController.prototype.update = function () {
 }
 
 AIController.prototype.update_enemy = function(enemy) {
-    if (!enemy.aiVelocity) {
-        enemy.aiVelocity = new Phaser.Point(0,0);
+    if (!enemy.aiAcceleration) {
         enemy.x = this.game.rnd.integerInRange(0,this.game.width);
         enemy.y = this.game.rnd.integerInRange(0,this.game.height);
 
         enemy.aiAcceleration = new Phaser.Point();
     }
 
-    var player_location = new Phaser.Point(this.game.input.x,this.game.input.y);
-
-    enemy.aiAcceleration.x = player_location.x - enemy.x;
-    enemy.aiAcceleration.y = player_location.y - enemy.y;
+    enemy.aiAcceleration.x = this.player.x - enemy.x;
+    enemy.aiAcceleration.y = this.player.y - enemy.y;
     enemy.aiAcceleration.setMagnitude(this.ENEMY_aiAcceleration);
 
-    enemy.aiVelocity = Phaser.Point.add(enemy.aiAcceleration, enemy.aiVelocity, enemy.aiVelocity);
-    if (enemy.aiVelocity.getMagnitude() > this.ENEMY_SPEED) {
-        enemy.aiVelocity.setMagnitude(this.ENEMY_SPEED);
+    enemy.velocity = Phaser.Point.add(enemy.aiAcceleration, enemy.velocity, enemy.velocity);
+    if (enemy.velocity.getMagnitude() > this.ENEMY_SPEED) {
+        enemy.velocity.setMagnitude(this.ENEMY_SPEED);
     }
 
-    enemy.x += enemy.aiVelocity.x;
-    enemy.y += enemy.aiVelocity.y;
+    enemy.x += enemy.velocity.x;
+    enemy.y += enemy.velocity.y;
 
 }
