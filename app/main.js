@@ -102,7 +102,7 @@
 
         	enemies[i] = game.add.sprite(x,y,'enemy' );
         	game.physics.enable([enemies[i]],Phaser.Physics.ARCADE);	
-        	enemies[i].body.setSize(97,24,0,12);
+        	enemies[i].body.setSize(100,113,0,0);
         }
     }
 
