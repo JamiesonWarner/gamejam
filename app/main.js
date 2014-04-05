@@ -25,6 +25,7 @@
         fill: "#ff0044",
         align: "center"
     });
+        livesText.fixedToCamera = true;
     }
 
     function update(){
@@ -66,7 +67,7 @@
     	ai = new AIController(game,enemies,player,obstacles);
         
         
-       
+        
         for(var i = 0; i < 10; i ++){
         	var x = 400;
         	var y =  400;
@@ -74,10 +75,11 @@
         		x = game.rnd.integerInRange(-800, 1600);
         		y =game.rnd.integerInRange(-600,1200);
         	} 
+
         	enemies[i] = game.add.sprite(x,y,'enemy' );
-        
+        	game.physics.enable([enemies[i]],Phaser.Physics.ARCADE);	
+        	enemies[i].body.setSize(97,24,0,12);
         }
-        game.physics.enable(enemies,Phaser.Physics.ARCADE);	
     }
 
     function enemyCollide(enemy1, enemy2){
