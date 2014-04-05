@@ -38,7 +38,7 @@
         game.load.audio('player_death',['sounds/player_die.mp3','sounds/player_die.ogg']);
         game.load.audio('enemy_death', ['sounds/enemy_die.mp3', 'sounds/enemy_die.ogg']);
         game.load.audio('player_spawn', ['sounds/player_spawn.mp3','sounds/player_spawn.ogg']);
-        game.load.audio('game_over', ['sounds/game_over.mp3','sounds/game_over.ogg']);)
+        game.load.audio('game_over', ['sounds/game_over.mp3','sounds/game_over.ogg']);
     }
 
     function create () {
