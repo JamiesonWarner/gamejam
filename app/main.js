@@ -11,7 +11,7 @@
     function preload () {
         game.load.image('logo', 'phaser.png');
         game.load.image('enemy','img/astronaut.png');
-        game.load.image('player','img/player.png');
+        game.load.spritesheet('player','img/player.png', 102, 94);
         game.load.image('space', 'img/space.png');
         game.load.image('planet1','img/planet1.png')
         game.load.image('planet2','img/planet2.png')
@@ -25,7 +25,6 @@
         game.load.image('planet10','img/planet10.png')
         game.load.image('planet11','img/planet11.png')
         game.load.image('planet12','img/planet12.png')
-
     }
 
     function create () {
@@ -84,6 +83,8 @@
 
     function resetSprites(){
     	player_sprite = game.add.sprite(game.world.centerX,game.world.centerY,'player');
+        player_sprite.animations.add('default', [0, 1, 2, 3], 10, true);
+        player_sprite.animations.play('default');
     	player_sprite.anchor.setTo(0.5, 0.5);
         game.physics.enable([player_sprite],Phaser.Physics.ARCADE);
 		player = new Player(game,player_sprite);
