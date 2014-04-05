@@ -27,6 +27,7 @@
         for(var i = 0; i < 10; i ++){
         	enemies[i] = game.add.sprite(game.world.bounds.x / 10, game.world.centerY,'enemy' );
         }
+        game.physics.enable(enemies,Phaser.Physics.ARCADE);
     }
 
     function update(){
