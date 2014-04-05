@@ -39,8 +39,11 @@
 
     function create () {
         // Init space background
-        this.spaceTile = game.add.tileSprite(0, 0, 100000, 100000, 'space');
-
+        this.spaceTile = game.add.tileSprite(0, 0, 2000, 2000, 'space');
+        for(var i = 0; i < 10; i ++){
+        	var sprite = game.add.sprite(game.rnd.integerInRange(0,2000),game.rnd.integerInRange(0,2000),'planet'+game.rnd.integerInRange(1,12));
+        	sprite.scale.setTo(1000,1000);
+        }
     	var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
         logo.anchor.setTo(0.5, 0.5);
         game.world.setBounds(0,0,2000,2000);
@@ -51,9 +54,7 @@
         align: "center"
     });
         livesText.fixedToCamera = true;
-        for(var i = 0; i < 10; i ++){
-        	game.add.sprite(game.rnd.integerInRange(0,game.world.bounds.width),game.rnd.integerInRange(0,game.world.bounds.height),'planet'+game.rnd.integerInRange(1,12));
-        }
+        
     }
 
     function update(){
@@ -106,12 +107,11 @@
         
         
         for(var i = 0; i < 10; i ++){
-        	var x = 400;
-        	var y =  400;
-        	while((x > 0 && x < game.camera.width) ||  (y > 0 && y < 600)){
-        		x = game.rnd.integerInRange(-800, 1600);
-        		y =game.rnd.integerInRange(-600,1200);
-        	} 
+        	var dispy  = game.rnd.integerInRange(1000,2000);
+        	var dispx = game.rnd.integerInRange(1000, 2000);
+        	var x = game.camera.x - dispx  + game.rnd.integerInRange(0,1) * (game.camera.width + dispx) ;
+        	var y =  game.camera.y - dispy + game.rnd.integerInRange(0,1) * (game.camera.height + dispy);
+        	
 
         	enemies[i] = game.add.sprite(x,y,'enemy' );
         	game.physics.enable([enemies[i]],Phaser.Physics.ARCADE);	
