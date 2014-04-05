@@ -48,11 +48,8 @@
         	var rand = (game.rnd.realInRange(-2, 2) + game.rnd.realInRange(-2, 6)) / 2 ;
         	sprite.scale.setTo(rand,rand);
         }
-        game.world.setBounds(0,0,2000,2000);
-		resetSprites();
-       
-
-		// Loop audio
+        
+        // Loop audio
 		music = game.add.audio('music',1,true);
 		music.play('',0,1,true);
         
@@ -60,6 +57,9 @@
         playerDeathSound = game.add.audio('player_death');
         enemyDeathSound = game.add.audio('enemy_death');
         spawnSound = game.add.audio('player_spawn');
+        
+        game.world.setBounds(0,0,2000,2000);
+		resetSprites();
         
         for(var i = 0; i < lives; i ++){
         	liveSprites[i] = game.add.sprite(game.camera.x + i * 50, game.camera.y + 0,'health');
