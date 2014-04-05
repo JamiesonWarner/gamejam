@@ -94,12 +94,11 @@
         
         
         for(var i = 0; i < 10; i ++){
-        	var x = 400;
-        	var y =  400;
-        	while((x > 0 && x < game.camera.width) ||  (y > 0 && y < 600)){
-        		x = game.rnd.integerInRange(-800, 1600);
-        		y =game.rnd.integerInRange(-600,1200);
-        	} 
+        	var dispy  = game.rnd.integerInRange(1000,2000);
+        	var dispx = game.rnd.integerInRange(1000, 2000);
+        	var x = game.camera.x - dispx  + game.rnd.integerInRange(0,1) * (game.camera.width + dispx) ;
+        	var y =  game.camera.y - dispy + game.rnd.integerInRange(0,1) * (game.camera.height + dispy);
+        	
 
         	enemies[i] = game.add.sprite(x,y,'enemy' );
         	game.physics.enable([enemies[i]],Phaser.Physics.ARCADE);	
