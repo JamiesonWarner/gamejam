@@ -6,8 +6,8 @@ function Player(game, player ){
 Player.prototype.update = function(){
     var distToCursor = Math.abs(this.game.input.mousePointer.worldY - this.player.y) + Math.abs(this.game.input.mousePointer.worldX - this.player.x);
     distToCursor *= 2;
-    if (distToCursor > 400) {
-        distToCursor = 400;
+    if (distToCursor > 300) {
+        distToCursor = 300;
     }
     if (distToCursor < 20) {
         distToCursor = 1;
