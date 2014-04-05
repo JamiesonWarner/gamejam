@@ -9,7 +9,7 @@
 
 	    //  The Google Fonts we want to load (specify as many as you like in the array)
 	    google: {
-	      families: ['Revalia']
+	      families: ['Revalia','Press Start 2P']
 	    }
 
 	};
@@ -34,6 +34,8 @@
     var laughSprite;
 
     var shooting = false;
+    var timer = 0;
+    var enemyDeaths = 0;
     function preload () {
     	//  Load the Google WebFont Loader script
     	game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
@@ -91,10 +93,15 @@
         	liveSprites[i] = game.add.sprite(game.camera.x + i * 50, game.camera.y + 0,'health');
         	liveSprites[i].fixedToCamera = true;
         }
+       	game.time.events.loop(Phaser.Timer.SECOND, updateTimer, this);
+    }
 
+    function updateTimer(){
+    	timer ++;
     }
 
     function update(){
+    	if(! (lives <0) ) timer ++;
     	for(var i = 0; i < enemies.length ; i ++){
     		game.physics.arcade.collide(player_sprite,enemies[i],killPlayer,null,this);
     	}
@@ -171,9 +178,8 @@
         // TODO astronaut talk
 
         // TODO blood splatter
-        
         if(enemy1.inCamera || enemy2.inCamera){
-            
+            enemyDeaths += 2;
             // Play explosion noise if dying enemy is visible
             enemyDeathSound.play();
             
@@ -209,9 +215,10 @@
 
     var text = null;
 	var grd;
+	var scoreText = 0;
     function createText() {
 
-	    text = game.add.text(game.camera.centerX, game.camera.centerY, "You\nLose!");
+	    text = game.add.text(game.camera.centerX, game.camera.centerY, "You\nLose!\n Score: 0");
 	    text.anchor.setTo(0.5);
 	    text.fixedToCamera = true;
    		text.cameraOffset.x = 400;
@@ -233,11 +240,20 @@
 
 	    text.inputEnabled = true;
 	    text.input.enableDrag();
+	    game.time.events.loop(Phaser.Timer.SECOND / 1000, updateScore, this);
+
 	    /*
 	    text.events.onInputOver.add(over, this);
 	    text.events.onInputOut.add(out, this);
 		*/
 	}	
+
+	function updateScore(){
+		if(scoreText < (timer + enemyDeaths * 50)){
+			scoreText += 10;
+			text.setText("You\nLose!\nScore: " + scoreText);
+		}
+	}
 	/*
 	function out() {
 
