@@ -67,6 +67,7 @@
 
     function resetSprites(){
     	player_sprite = game.add.sprite(game.world.centerX,game.world.centerY,'player');
+    	player_sprite.anchor.setTo(0.5, 0.5);
         game.physics.enable([player_sprite],Phaser.Physics.ARCADE);
 		player = new Player(game,player_sprite);
 		game.camera.follow(player_sprite);
@@ -77,7 +78,7 @@
         for(var i = 0; i < 10; i ++){
         	var x = 400;
         	var y =  400;
-        	while((x > 0 && x < game.world.width) ||  (y > 0 && y < 600)){
+        	while((x > 0 && x < game.camera.width) ||  (y > 0 && y < 600)){
         		x = game.rnd.integerInRange(-800, 1600);
         		y =game.rnd.integerInRange(-600,1200);
         	} 
