@@ -14,18 +14,20 @@
     }
 
     function create () {
+    	var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
+        logo.anchor.setTo(0.5, 0.5);
 		player_sprite = game.add.sprite(game.world.centerX,game.world.centerY,'player');
         game.physics.enable([player_sprite],Phaser.Physics.ARCADE);
 		player = new Player(game,player_sprite);
-		
+
     	ai = new AIController(game,enemies,player,obstacles);
         
-        var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
-        logo.anchor.setTo(0.5, 0.5);
+        
        
         for(var i = 0; i < 10; i ++){
         	enemies[i] = game.add.sprite(game.world.bounds.x / 10, game.world.centerY,'enemy' );
         }
+        game.physics.enable(enemies,Phaser.Physics.ARCADE);
     }
 
     function update(){
