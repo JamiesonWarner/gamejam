@@ -42,8 +42,8 @@
         this.spaceTile = game.add.tileSprite(0, 0, 2000, 2000, 'space');
         for(var i = 0; i < 10; i ++){
         	var sprite = game.add.sprite(game.rnd.integerInRange(0,2000),game.rnd.integerInRange(0,2000),'planet'+game.rnd.integerInRange(1,12));
-        	var rand = game.rnd.realInRange(-2, 6);
-        	sprite.scale.setTo(rand);
+        	var rand = (game.rnd.realInRange(-2, 2) + game.rnd.realInRange(-2, 6)) / 2 ;
+        	sprite.scale.setTo(rand,rand);
         }
     	var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
         logo.anchor.setTo(0.5, 0.5);
