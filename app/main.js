@@ -8,26 +8,26 @@
     var player_sprite;
     var lives = 3;
     var livesText;
-
+    var music;
 
     function preload () {
         game.load.image('logo', 'phaser.png');
         game.load.image('enemy','img/astronaut.png');
         game.load.spritesheet('player','img/player.png', 102, 94);
         game.load.image('space', 'img/space.png');
-        game.load.image('planet1','img/planet1.png')
-        game.load.image('planet2','img/planet2.png')
-        game.load.image('planet3','img/planet3.png')
-        game.load.image('planet4','img/planet4.png')
-        game.load.image('planet5','img/planet5.png')
-        game.load.image('planet6','img/planet6.png')
-        game.load.image('planet7','img/planet7.png')
-        game.load.image('planet8','img/planet8.png')
-        game.load.image('planet9','img/planet9.png')
-        game.load.image('planet10','img/planet10.png')
-        game.load.image('planet11','img/planet11.png')
-        game.load.image('planet12','img/planet12.png')
-	game.load.audio(‘music’,’sounds/game_music_v1.mp3’);
+        game.load.image('planet1','img/planet1.png');
+        game.load.image('planet2','img/planet2.png');
+        game.load.image('planet3','img/planet3.png');
+        game.load.image('planet4','img/planet4.png');
+        game.load.image('planet5','img/planet5.png');
+        game.load.image('planet6','img/planet6.png');
+        game.load.image('planet7','img/planet7.png');
+        game.load.image('planet8','img/planet8.png');
+        game.load.image('planet9','img/planet9.png');
+        game.load.image('planet10','img/planet10.png');
+        game.load.image('planet11','img/planet11.png');
+        game.load.image('planet12','img/planet12.png');
+		game.load.audio('music',['sounds/game_music_v1.mp3','sounds/game_music_v1.ogg']);
     }
 
     function create () {
@@ -46,12 +46,12 @@
         font: "24px Arial",
         fill: "#ff0044",
         align: "center"
-    });
+    	});
         livesText.fixedToCamera = true;
 
-	// Loop audio
-	music = game.add.audio(‘music’,1,true);
-	music.play(‘’,0,1,true);
+		// Loop audio
+		music = game.add.audio('music',1,true);
+		music.play('',0,1,true);
         
     }
 
