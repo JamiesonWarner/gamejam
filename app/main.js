@@ -1,6 +1,6 @@
 
 
-    var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create ,update : update, render:render });
+    var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create ,update : update });
     var enemies = [];
     var player;
     var obstacles = [];
@@ -9,14 +9,6 @@
     var lives = 3;
     var livesText;
 
-    function render() {
-        for (var i = 0; i < enemies.length; i++) {
-            var enemy = enemies[i];
-            game.debug.body(enemy);
-        }
-        game.debug.body(player_sprite);
-
-    }
 
     function preload () {
         game.load.image('logo', 'phaser.png');
@@ -98,7 +90,7 @@
         player_sprite.animations.play('default');
     	player_sprite.anchor.setTo(0.5, 0.5);
         game.physics.enable([player_sprite],Phaser.Physics.ARCADE);
-        player_sprite.body.setSize(82, 74, 10, 10);
+        player_sprite.body.setSize(22, 44, 0, 5);
 
 
 		player = new Player(game,player_sprite);
