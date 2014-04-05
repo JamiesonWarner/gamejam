@@ -4,8 +4,8 @@ function AIController(game, enemies, player, obstacles) {
     this.player = player.player;
     this.obstacles = obstacles;
 
-    this.ENEMY_SPEED = 200;
-    this.ENEMY_aiAcceleration = 4;
+    this.ENEMY_SPEED = 400;
+    this.ENEMY_aiAcceleration = 10;
 }
 
 AIController.prototype.update = function () {
