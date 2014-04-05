@@ -18,8 +18,7 @@ AIController.prototype.update = function () {
 
 AIController.prototype.update_enemy = function(enemy) {
     if (!enemy.aiAcceleration) {
-        enemy.x = this.game.rnd.integerInRange(0,this.game.width);
-        enemy.y = this.game.rnd.integerInRange(0,this.game.height);
+        
 
         enemy.aiAcceleration = new Phaser.Point();
     }
