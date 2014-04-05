@@ -15,6 +15,7 @@
         game.load.image('enemy','img/astronaut.png');
         game.load.spritesheet('player','img/player.png', 102, 94);
         game.load.image('space', 'img/space.png');
+        game.load.image('nebula', 'img/nebula.jpg');
         game.load.image('planet1','img/planet1.png');
         game.load.image('planet2','img/planet2.png');
         game.load.image('planet3','img/planet3.png');
@@ -32,14 +33,13 @@
 
     function create () {
         // Init space background
+        this.nebulaTile = game.add.tileSprite(0, 0, 2000, 2000, 'nebula');
         this.spaceTile = game.add.tileSprite(0, 0, 2000, 2000, 'space');
         for(var i = 0; i < 10; i ++){
         	var sprite = game.add.sprite(game.rnd.integerInRange(0,2000),game.rnd.integerInRange(0,2000),'planet'+game.rnd.integerInRange(1,12));
         	var rand = (game.rnd.realInRange(-2, 2) + game.rnd.realInRange(-2, 6)) / 2 ;
         	sprite.scale.setTo(rand,rand);
         }
-    	var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
-        logo.anchor.setTo(0.5, 0.5);
         game.world.setBounds(0,0,2000,2000);
 		resetSprites();
         livesText = game.add.text(0,0,"Lives: "+ lives,{
@@ -70,6 +70,8 @@
 
         this.spaceTile.tilePosition.x = game.camera.x * .5;
         this.spaceTile.tilePosition.y = game.camera.y * .5;
+        this.nebulaTile.tilePosition.x = game.camera.x * .6;
+        this.nebulaTile.tilePosition.y = game.camera.y * .6;
     }
 
     function killPlayer(player,enemy){
@@ -92,6 +94,7 @@
     function resetSprites(){
     	player_sprite = game.add.sprite(game.world.centerX,game.world.centerY,'player');
         player_sprite.animations.add('default', [0, 1, 2, 3], 10, true);
+        player_sprite.animations.add('happy', [4, 5, 6], 20, false);
         player_sprite.animations.play('default');
     	player_sprite.anchor.setTo(0.5, 0.5);
         game.physics.enable([player_sprite],Phaser.Physics.ARCADE);
@@ -118,6 +121,22 @@
     }
 
     function enemyCollide(enemy1, enemy2){
+        // TODO astronaut talk
+
+        // TODO blood splatter
+
+        // Chance for player animation
+        if (game.rnd.integerInRange(0,1) == 0) {
+            var anim = player_sprite.animations.play('happy');
+            if (anim) {
+                anim.onComplete.add(function(){
+                    player_sprite.animations.play('default');
+                });
+            }
+
+        }
+
+        // Move enemies off screen
     	replaceEnemy(enemy1);
     	replaceEnemy(enemy2);
     }
