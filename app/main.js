@@ -9,7 +9,7 @@
     var lives = 3;
     var music;
     var playerDeathSound;
-    var enemyDeathSounds = [];
+    var enemyDeathSound;
     var liveSprites = [];
     function preload () {
         game.load.image('logo', 'phaser.png');
@@ -32,9 +32,7 @@
         game.load.image('health','img/healthIcon.png');
 		game.load.audio('music',['sounds/game_music_v1.mp3','sounds/game_music_v1.ogg']);
         game.load.audio('player_death',['sounds/player_die.mp3','sounds/player_die.ogg']);
-        for (var i = 1; i <= 3; i++) {
-            game.load.audio('enemy_death_' + i, ['sounds/enemy_die_' + i + '.mp3', 'sounds/enemy_die_' + i + '.ogg']);
-        }
+        game.load.audio('enemy_death', ['sounds/enemy_die.mp3', 'sounds/enemy_die.ogg']);
     }
 
     function create () {
@@ -56,8 +54,8 @@
         
         // Store sounds as variables
         playerDeathSound = game.add.audio('player_death');
-        for (var i = 0; i < 3; i++)
-            enemyDeathSounds[i] = game.add.audio('enemy_death_' + i+1);
+        enemyDeathSound = game.add.audio('enemy_death');
+        
         for(var i = 0; i < lives; i ++){
         	liveSprites[i] = game.add.sprite(game.camera.x + i * 50, game.camera.y + 0,'health');
         	liveSprites[i].fixedToCamera = true;
@@ -150,7 +148,7 @@
 	        }
     	}
         
-        enemyDeathSounds[game.rnd.integerInRange(0,2)].play();
+        enemyDeathSound.play();
 
         // Move enemies off screen
     	replaceEnemy(enemy1);
