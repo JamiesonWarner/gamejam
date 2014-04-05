@@ -33,4 +33,10 @@ AIController.prototype.update_enemy = function(enemy) {
         enemy.body.velocity.setMagnitude(this.ENEMY_SPEED);
     }
 
+    this.face_sprite(enemy,enemy.body.velocity.x, enemy.body.velocity.y);
+
+}
+
+AIController.prototype.face_sprite = function(sprite, x, y) {
+    sprite.angle = Math.atan2(y,x)*180 / Math.PI;
 }
