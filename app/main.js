@@ -82,6 +82,8 @@
 
     function resetSprites(){
     	player_sprite = game.add.sprite(game.world.centerX,game.world.centerY,'player');
+        player_sprite.animations.add('default', [0, 1, 2, 3], 10, true);
+        player_sprite.animations.play('default');
     	player_sprite.anchor.setTo(0.5, 0.5);
         game.physics.enable([player_sprite],Phaser.Physics.ARCADE);
 		player = new Player(game,player_sprite);
