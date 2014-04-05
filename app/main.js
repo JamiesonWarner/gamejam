@@ -42,9 +42,8 @@
         align: "center"
     });
         livesText.fixedToCamera = true;
-        for(var i = 0; i < 100; i ++){
-        	var planet = game.add.sprite(game.rnd.integerInRange(0,game.world.bounds.width),game.rnd.integerInRange(0,game.world.bounds.height),'planet'+game.rnd.integerInRange(1,12));
-        	planet.scale.setTo(10,10);
+        for(var i = 0; i < 10; i ++){
+        	game.add.sprite(game.rnd.integerInRange(0,game.world.bounds.width),game.rnd.integerInRange(0,game.world.bounds.height),'planet'+game.rnd.integerInRange(1,12));
         }
     }
 
