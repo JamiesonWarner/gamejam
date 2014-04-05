@@ -148,7 +148,7 @@
 	        }
     	}
         
-        
+        enemyDeathSound.play();
 
         // Move enemies off screen
     	replaceEnemy(enemy1);
