@@ -12,10 +12,13 @@
         game.load.image('logo', 'phaser.png');
         game.load.image('enemy','img/enemy_test.png');
         game.load.image('player','img/player.png');
-        
+        game.load.image('space', 'img/space.png');
     }
 
     function create () {
+        // Init space background
+        this.spaceTile = game.add.tileSprite(0, 0, 100000, 100000, 'space');
+
     	var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
         logo.anchor.setTo(0.5, 0.5);
         game.world.setBounds(0,0,2000,2000);
@@ -40,6 +43,9 @@
     	}
     	ai.update();
     	player.update();
+
+        this.spaceTile.tilePosition.x = game.camera.x * .5;
+        this.spaceTile.tilePosition.y = game.camera.y * .5;
     }
 
     function killPlayer(player,enemy){
