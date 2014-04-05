@@ -8,6 +8,8 @@
     var player_sprite;
     var lives = 3;
     var livesText;
+
+
     function preload () {
         game.load.image('logo', 'phaser.png');
         game.load.image('enemy','img/astronaut.png');
