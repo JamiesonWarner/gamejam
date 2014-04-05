@@ -31,6 +31,9 @@
     }
 
     function update(){
+    	for(var i = 0; i < 10; i ++){
+    		game.physics.arcade.collide(player_sprite,enemies[i],null,null,this);
+    	}
     	ai.update();
     	player.update();
     }
