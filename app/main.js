@@ -9,6 +9,8 @@
     var lives = 3;
     var livesText;
     var music;
+    var playerDeathSound;
+    var enemyDeathSounds = [];
 
     function preload () {
         game.load.image('logo', 'phaser.png');
@@ -29,6 +31,10 @@
         game.load.image('planet11','img/planet11.png');
         game.load.image('planet12','img/planet12.png');
 		game.load.audio('music',['sounds/game_music_v1.mp3','sounds/game_music_v1.ogg']);
+        game.load.audio('player_death',['sounds/player_die.mp3','sounds/player_die.ogg']);
+        for (var i = 1; i <= 3; i++) {
+            game.load.audio('enemy_death_' + i, ['sounds/enemy_die_' + i + '.mp3', 'sounds/enemy_die_' + i + '.ogg']);
+        }
     }
 
     function create () {
@@ -53,6 +59,12 @@
 		music = game.add.audio('music',1,true);
 		music.play('',0,1,true);
         
+        // Store sounds as variables
+        playerDeathSound = game.add.audio('player_death');
+        for (var i = 0; i < 3; i++)
+            enemyDeathSounds[i] = game.add.audio('enemy_death_' + i+1);
+        
+
     }
 
     function update(){
@@ -79,6 +91,7 @@
     		enemies[i].destroy();
     	}
     	player_sprite.destroy();
+        playerDeathSound.play();
     	lives --;
     	livesText.setText("Lives: "+lives);
     	if(lives == 0){
@@ -124,7 +137,7 @@
         // TODO astronaut talk
 
         // TODO blood splatter
-
+        
         // Chance for player animation
         if (game.rnd.integerInRange(0,1) == 0) {
             var anim = player_sprite.animations.play('happy');
@@ -135,6 +148,8 @@
             }
 
         }
+        
+        enemyDeathSounds[game.rnd.integerInRange(0,2)].play();
 
         // Move enemies off screen
     	replaceEnemy(enemy1);
