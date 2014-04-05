@@ -23,9 +23,13 @@
     var ai;
     var player_sprite;
     var lives = 3;
+
     var music;
     var playerDeathSound;
-    var enemyDeathSounds = [];
+    var enemyDeathSound;
+    var spawnSound;
+    var gameOverSound;
+
     var liveSprites = [];
     var laughSprite;
     function preload () {
@@ -53,9 +57,9 @@
         game.load.image('l_astronaut','img/laughingAstronaut.png');
 		game.load.audio('music',['sounds/game_music_v1.mp3','sounds/game_music_v1.ogg']);
         game.load.audio('player_death',['sounds/player_die.mp3','sounds/player_die.ogg']);
-        for (var i = 1; i <= 3; i++) {
-            game.load.audio('enemy_death_' + i, ['sounds/enemy_die_' + i + '.mp3', 'sounds/enemy_die_' + i + '.ogg']);
-        }
+        game.load.audio('enemy_death', ['sounds/enemy_die.mp3', 'sounds/enemy_die.ogg']);
+        game.load.audio('player_spawn', ['sounds/player_spawn.mp3','sounds/player_spawn.ogg']);
+        game.load.audio('game_over', ['sounds/game_over.mp3','sounds/game_over.ogg']);
     }
 
     function create () {
@@ -67,18 +71,20 @@
         	var rand = (game.rnd.realInRange(-2, 2) + game.rnd.realInRange(-2, 6)) / 2 ;
         	sprite.scale.setTo(rand,rand);
         }
-        game.world.setBounds(0,0,2000,2000);
-		resetSprites();
-       
-
-		// Loop audio
+        
+        // Loop audio
 		music = game.add.audio('music',1,true);
 		music.play('',0,1,true);
         
         // Store sounds as variables
         playerDeathSound = game.add.audio('player_death');
-        for (var i = 0; i < 3; i++)
-            enemyDeathSounds[i] = game.add.audio('enemy_death_' + i+1);
+        enemyDeathSound = game.add.audio('enemy_death');
+        spawnSound = game.add.audio('player_spawn');
+        gameOverSound = game.add.audio('game_over');
+        
+        game.world.setBounds(0,0,2000,2000);
+		resetSprites();
+        
         for(var i = 0; i < lives; i ++){
         	liveSprites[i] = game.add.sprite(game.camera.x + i * 50, game.camera.y + 0,'health');
         	liveSprites[i].fixedToCamera = true;
@@ -109,17 +115,20 @@
     	for(var i = 0; i < enemies.length; i++){
     		enemies[i].destroy();
     	}
-    	if(lives > 0) liveSprites[lives - 1].destroy();
+    	if (lives > 0) liveSprites[lives - 1].destroy();
     	player_sprite.destroy();
         playerDeathSound.play();
     	lives --;
     	if(lives < 0){
+
     		laughSprite = game.add.sprite(0,0,'l_astronaut');
     		laughSprite.fixedToCamera = true;
     		laughSprite.cameraOffset.x = 50;
     		laughSprite.cameraOffset.y = 350
     		createText();
-    	}
+    		
+            gameOverSound.play();
+    	}	
     	else{
     		game.time.events.add(Phaser.Timer.SECOND * 4,resetSprites,this);
     	}	
@@ -134,6 +143,7 @@
         game.physics.enable([player_sprite],Phaser.Physics.ARCADE);
         player_sprite.body.setSize(22, 44, 0, 5);
 
+        if (lives < 3) spawnSound.play();
 
 		player = new Player(game,player_sprite);
 		game.camera.follow(player_sprite);
@@ -161,6 +171,10 @@
         // TODO blood splatter
         
         if(enemy1.inCamera || enemy2.inCamera){
+            
+            // Play explosion noise if dying enemy is visible
+            enemyDeathSound.play();
+            
 	        // Chance for player animation
 	        if (game.rnd.integerInRange(0,1) == 0) {
 	            var anim = player_sprite.animations.play('happy');
@@ -173,7 +187,7 @@
 	        }
     	}
         
-        enemyDeathSounds[game.rnd.integerInRange(0,2)].play();
+        
 
         // Move enemies off screen
     	replaceEnemy(enemy1);
