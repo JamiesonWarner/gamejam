@@ -1,7 +1,7 @@
 function AIController(game, enemies, player, obstacles) {
     this.game = game;
     this.enemies = enemies;
-    this.player = player;
+    this.player = player.player;
     this.obstacles = obstacles;
 
     this.ENEMY_SPEED = 5;
@@ -25,10 +25,8 @@ AIController.prototype.update_enemy = function(enemy) {
         enemy.aiAcceleration = new Phaser.Point();
     }
 
-    var player_location = new Phaser.Point(this.game.input.x,this.game.input.y);
-
-    enemy.aiAcceleration.x = player_location.x - enemy.x;
-    enemy.aiAcceleration.y = player_location.y - enemy.y;
+    enemy.aiAcceleration.x = this.player.x - enemy.x;
+    enemy.aiAcceleration.y = this.player.y - enemy.y;
     enemy.aiAcceleration.setMagnitude(this.ENEMY_aiAcceleration);
 
     enemy.aiVelocity = Phaser.Point.add(enemy.aiAcceleration, enemy.aiVelocity, enemy.aiVelocity);
