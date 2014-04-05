@@ -1,4 +1,20 @@
 
+	//  The Google WebFont Loader will look for this object, so create it before loading the script.
+	WebFontConfig = {
+
+	    //  'active' means all requested fonts have finished loading
+	    //  We set a 1 second delay before calling 'createText'.
+	    //  For some reason if we don't the browser cannot render the text the first time it's created.
+	    active: function() {  },
+
+	    //  The Google Fonts we want to load (specify as many as you like in the array)
+	    google: {
+	      families: ['Revalia']
+	    }
+
+	};
+
+    
 
     var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create ,update : update });
     var enemies = [];
@@ -11,7 +27,11 @@
     var playerDeathSound;
     var enemyDeathSounds = [];
     var liveSprites = [];
+    var laughSprite;
     function preload () {
+    	//  Load the Google WebFont Loader script
+    	game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+        
         game.load.image('logo', 'phaser.png');
         game.load.image('enemy','img/astronaut.png');
         game.load.spritesheet('player','img/player.png', 102, 94);
@@ -30,6 +50,7 @@
         game.load.image('planet11','img/planet11.png');
         game.load.image('planet12','img/planet12.png');
         game.load.image('health','img/healthIcon.png');
+        game.load.image('l_astronaut','img/laughingAstronaut.png');
 		game.load.audio('music',['sounds/game_music_v1.mp3','sounds/game_music_v1.ogg']);
         game.load.audio('player_death',['sounds/player_die.mp3','sounds/player_die.ogg']);
         for (var i = 1; i <= 3; i++) {
@@ -88,14 +109,16 @@
     	for(var i = 0; i < enemies.length; i++){
     		enemies[i].destroy();
     	}
-    	liveSprites[lives - 1].destroy();
+    	if(lives > 0) liveSprites[lives - 1].destroy();
     	player_sprite.destroy();
         playerDeathSound.play();
     	lives --;
     	if(lives < 0){
-    		game.add.text(game.camera.x + game.camera.width / 2,game.camera.y + game.camera.height / 2,"You Lose!", {font: "64px Arial",
-        fill: "#ff0044",
-        align: "center"});
+    		laughSprite = game.add.sprite(0,0,'l_astronaut');
+    		laughSprite.fixedToCamera = true;
+    		laughSprite.cameraOffset.x = 50;
+    		laughSprite.cameraOffset.y = 350
+    		createText();
     	}
     	else{
     		game.time.events.add(Phaser.Timer.SECOND * 4,resetSprites,this);
@@ -168,4 +191,43 @@
         } 	
     }
 
+    var text = null;
+	var grd;
+    function createText() {
+
+	    text = game.add.text(game.camera.centerX, game.camera.centerY, "You\nLose!");
+	    text.anchor.setTo(0.5);
+	    text.fixedToCamera = true;
+   		text.cameraOffset.x = 400;
+    	text.cameraOffset.y = 300;
+
+	    text.font = 'Revalia';
+	    text.fontSize = 60;
+
+	    //  x0, y0 - x1, y1
+	    grd = text.context.createLinearGradient(0, 0, 0, text.canvas.height);
+	    grd.addColorStop(0, '#8ED6FF');   
+	    grd.addColorStop(1, '#004CB3');
+	    text.fill = grd;
+
+	    text.align = 'center';
+	    text.stroke = '#000000';
+	    text.strokeThickness = 2;
+	    text.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
+
+	    text.inputEnabled = true;
+	    text.input.enableDrag();
+	    /*
+	    text.events.onInputOver.add(over, this);
+	    text.events.onInputOut.add(out, this);
+		*/
+	}	
+	/*
+	function out() {
+
+	    text.fill = grd;
+
+	}*/
+
+	
 
