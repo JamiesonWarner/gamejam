@@ -136,6 +136,10 @@
         // TODO blood splatter
         
         if(enemy1.inCamera || enemy2.inCamera){
+            
+            // Play explosion noise if dying enemy is visible
+            enemyDeathSound.play();
+            
 	        // Chance for player animation
 	        if (game.rnd.integerInRange(0,1) == 0) {
 	            var anim = player_sprite.animations.play('happy');
@@ -148,7 +152,7 @@
 	        }
     	}
         
-        enemyDeathSound.play();
+        
 
         // Move enemies off screen
     	replaceEnemy(enemy1);
