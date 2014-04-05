@@ -12,6 +12,7 @@
     var playerDeathSound;
     var enemyDeathSound;
     var spawnSound;
+    var gameOverSound;
 
     var liveSprites = [];
     function preload () {
@@ -37,6 +38,7 @@
         game.load.audio('player_death',['sounds/player_die.mp3','sounds/player_die.ogg']);
         game.load.audio('enemy_death', ['sounds/enemy_die.mp3', 'sounds/enemy_die.ogg']);
         game.load.audio('player_spawn', ['sounds/player_spawn.mp3','sounds/player_spawn.ogg']);
+        game.load.audio('game_over', ['sounds/game_over.mp3','sounds/game_over.ogg']);)
     }
 
     function create () {
@@ -57,6 +59,7 @@
         playerDeathSound = game.add.audio('player_death');
         enemyDeathSound = game.add.audio('enemy_death');
         spawnSound = game.add.audio('player_spawn');
+        gameOverSound = game.add.audio('game_over');
         
         game.world.setBounds(0,0,2000,2000);
 		resetSprites();
@@ -96,6 +99,7 @@
         playerDeathSound.play();
     	lives --;
     	if(lives < 0){
+            gameOverSound.play();
     		game.add.text(game.camera.x + game.camera.width / 2,game.camera.y + game.camera.height / 2,"You Lose!", {font: "64px Arial",
         fill: "#ff0044",
         align: "center"});
