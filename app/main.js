@@ -7,9 +7,12 @@
     var ai;
     var player_sprite;
     var lives = 3;
+
     var music;
     var playerDeathSound;
     var enemyDeathSound;
+    var spawnSound;
+
     var liveSprites = [];
     function preload () {
         game.load.image('logo', 'phaser.png');
@@ -33,6 +36,7 @@
 		game.load.audio('music',['sounds/game_music_v1.mp3','sounds/game_music_v1.ogg']);
         game.load.audio('player_death',['sounds/player_die.mp3','sounds/player_die.ogg']);
         game.load.audio('enemy_death', ['sounds/enemy_die.mp3', 'sounds/enemy_die.ogg']);
+        game.load.audio('player_spawn', ['sounds/player_spawn.mp3','sounds/player_spawn.ogg']);
     }
 
     function create () {
@@ -55,6 +59,7 @@
         // Store sounds as variables
         playerDeathSound = game.add.audio('player_death');
         enemyDeathSound = game.add.audio('enemy_death');
+        spawnSound = game.add.audio('player_spawn');
         
         for(var i = 0; i < lives; i ++){
         	liveSprites[i] = game.add.sprite(game.camera.x + i * 50, game.camera.y + 0,'health');
@@ -109,6 +114,7 @@
         game.physics.enable([player_sprite],Phaser.Physics.ARCADE);
         player_sprite.body.setSize(22, 44, 0, 5);
 
+        spawnSound.play();
 
 		player = new Player(game,player_sprite);
 		game.camera.follow(player_sprite);
