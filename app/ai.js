@@ -4,8 +4,8 @@ function AIController(game, enemies, player, obstacles) {
     this.player = player.player;
     this.obstacles = obstacles;
 
-    this.ENEMY_SPEED = 5;
-    this.ENEMY_aiAcceleration = .1;
+    this.ENEMY_SPEED = 200;
+    this.ENEMY_aiAcceleration = 4;
 }
 
 AIController.prototype.update = function () {
@@ -28,12 +28,9 @@ AIController.prototype.update_enemy = function(enemy) {
     enemy.aiAcceleration.y = this.player.y - enemy.y;
     enemy.aiAcceleration.setMagnitude(this.ENEMY_aiAcceleration);
 
-    enemy.velocity = Phaser.Point.add(enemy.aiAcceleration, enemy.velocity, enemy.velocity);
-    if (enemy.velocity.getMagnitude() > this.ENEMY_SPEED) {
-        enemy.velocity.setMagnitude(this.ENEMY_SPEED);
+    enemy.body.velocity = Phaser.Point.add(enemy.aiAcceleration, enemy.body.velocity, enemy.body.velocity);
+    if (enemy.body.velocity.getMagnitude() > this.ENEMY_SPEED) {
+        enemy.body.velocity.setMagnitude(this.ENEMY_SPEED);
     }
-
-    enemy.x += enemy.velocity.x;
-    enemy.y += enemy.velocity.y;
 
 }
