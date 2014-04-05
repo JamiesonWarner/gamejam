@@ -8,6 +8,8 @@
     var player_sprite;
     var lives = 3;
     var livesText;
+
+
     function preload () {
         game.load.image('logo', 'phaser.png');
         game.load.image('enemy','img/astronaut.png');
@@ -102,7 +104,7 @@
 
         	enemies[i] = game.add.sprite(x,y,'enemy' );
         	game.physics.enable([enemies[i]],Phaser.Physics.ARCADE);	
-        	enemies[i].body.setSize(100,113,0,0);
+        	enemies[i].body.setSize(90,93,5,10);
         }
     }
 

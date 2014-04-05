@@ -19,6 +19,7 @@ AIController.prototype.update = function () {
 AIController.prototype.update_enemy = function(enemy) {
     if (!enemy.aiAcceleration) {
         enemy.rotationOffset = this.game.rnd.integerInRange(0,360);
+        enemy.anchor.setTo(.5, .5);
         enemy.aiAcceleration = new Phaser.Point();
     }
 
