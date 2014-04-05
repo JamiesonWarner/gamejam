@@ -10,9 +10,22 @@
     var livesText;
     function preload () {
         game.load.image('logo', 'phaser.png');
-        game.load.image('enemy','img/enemy_test.png');
+        game.load.image('enemy','img/astronaut.png');
         game.load.image('player','img/player.png');
         game.load.image('space', 'img/space.png');
+        game.load.image('planet1','img/planet1.png')
+        game.load.image('planet2','img/planet2.png')
+        game.load.image('planet3','img/planet3.png')
+        game.load.image('planet4','img/planet4.png')
+        game.load.image('planet5','img/planet5.png')
+        game.load.image('planet6','img/planet6.png')
+        game.load.image('planet7','img/planet7.png')
+        game.load.image('planet8','img/planet8.png')
+        game.load.image('planet9','img/planet9.png')
+        game.load.image('planet10','img/planet10.png')
+        game.load.image('planet11','img/planet11.png')
+        game.load.image('planet12','img/planet12.png')
+
     }
 
     function create () {
@@ -29,6 +42,11 @@
         align: "center"
     });
         livesText.fixedToCamera = true;
+        for(var i = 0; i < 100; i ++){
+        	var planet = game.add.sprite(game.rnd.integerInRange(0,game.world.bounds.width),game.rnd.integerInRange(0,game.world.bounds.height),'planet'+game.rnd.integerInRange(1,12));
+        	var scale = game.rnd.integerInRange(50,100);
+        	planet.scale.setTo(scale,scale);
+        }
     }
 
     function update(){
