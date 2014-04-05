@@ -32,6 +32,8 @@
 
     var liveSprites = [];
     var laughSprite;
+
+    var shooting = false;
     function preload () {
     	//  Load the Google WebFont Loader script
     	game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
@@ -126,7 +128,7 @@
     		laughSprite.cameraOffset.x = 50;
     		laughSprite.cameraOffset.y = 350
     		createText();
-    		
+
             gameOverSound.play();
     	}	
     	else{
