@@ -114,7 +114,7 @@
         game.physics.enable([player_sprite],Phaser.Physics.ARCADE);
         player_sprite.body.setSize(22, 44, 0, 5);
 
-        spawnSound.play();
+        if (lives < 3) spawnSound.play();
 
 		player = new Player(game,player_sprite);
 		game.camera.follow(player_sprite);
