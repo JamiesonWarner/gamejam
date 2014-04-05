@@ -35,6 +35,7 @@
         game.load.image('planet10','img/planet10.png')
         game.load.image('planet11','img/planet11.png')
         game.load.image('planet12','img/planet12.png')
+	game.load.audio(‘music’,’sounds/game_music_v1.mp3’);
     }
 
     function create () {
@@ -55,6 +56,10 @@
         align: "center"
     });
         livesText.fixedToCamera = true;
+
+	// Loop audio
+	music = game.add.audio(‘music’,1,true);
+	music.play(‘’,0,1,true);
         
     }
 
