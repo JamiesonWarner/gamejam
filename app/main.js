@@ -86,7 +86,7 @@
     	for(var i = 0; i < enemies.length; i++){
     		enemies[i].destroy();
     	}
-    	liveSprites[lives - 1].destroy();
+    	if (lives > 0) liveSprites[lives - 1].destroy();
     	player_sprite.destroy();
         playerDeathSound.play();
     	lives --;
